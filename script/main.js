@@ -54,8 +54,15 @@ function start(e){
 
     isDrawing = true;
     redoTab = [];
-    posX = e.clientX - canvas.offsetLeft;
-    posY = e.clientY - canvas.offsetTop;
+
+    if (e.type == 'touchstart') {
+        posX = e.changedTouches[0].clientX - canvas.offsetLeft;
+        posY = e.changedTouches[0].clientY - canvas.offsetTop; 
+    }
+    else {  
+        posX = e.clientX - canvas.offsetLeft;
+        posY = e.clientY - canvas.offsetTop;
+    }
 
     ctx.beginPath();
     ctx.strokeStyle = (currentTool == 'eraser') ? eraserColor : penColor; 
@@ -83,8 +90,14 @@ function start(e){
 }
 
 function draw(e){
-    posX = e.clientX - canvas.offsetLeft;
-    posY = e.clientY - canvas.offsetTop;
+      if (e.type == 'touchmove') {
+        posX = e.changedTouches[0].clientX - canvas.offsetLeft;
+        posY = e.changedTouches[0].clientY - canvas.offsetTop; 
+    }
+    else {  
+        posX = e.clientX - canvas.offsetLeft;
+        posY = e.clientY - canvas.offsetTop;
+    }
 
     if(isDrawing){
         if (currentShape == 'line')
